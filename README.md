@@ -8,4 +8,4 @@
 
 ### `npm install`
 ### `npm start`
-Открыть [http://localhost:3000](http://localhost:3000) для просмотра в браузере.
+API доступно на [http://localhost:8080](http://localhost:8080)

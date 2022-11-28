@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Vacancy, VacancyDocument } from './vacancies.model';
@@ -6,6 +6,7 @@ import { initialVacancy } from '../../data/initial.data';
 import { CreateVacancyDto, VacancyIdDto } from './dto/vacancies.dto';
 import { UserId } from '../../interfaces/userId';
 import { ColumnsService } from '../columns/columns.service';
+import { HTTP_STATUS_MESSAGE_VACANCY_NOT_FOUND } from '../../constants/httpStatusMessages';
 
 @Injectable()
 export class VacanciesService {
@@ -22,7 +23,7 @@ export class VacanciesService {
   }
 
   async getVacancyById({ userId, vacancyId }: UserId & VacancyIdDto) {
-    return this.vacanciesModel
+    const vacancy = await this.vacanciesModel
       .findOne({
         _id: vacancyId,
         userId,
@@ -31,6 +32,15 @@ export class VacanciesService {
         path: 'columns',
         populate: { path: 'list' },
       });
+
+    if (!vacancy) {
+      throw new HttpException(
+        HTTP_STATUS_MESSAGE_VACANCY_NOT_FOUND,
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    return vacancy;
   }
 
   async createVacancy({ userId, name, link }: UserId & CreateVacancyDto) {

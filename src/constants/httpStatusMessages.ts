@@ -3,6 +3,11 @@ export const HTTP_STATUS_MESSAGE_NOT_FOUND = {
   message: 'Ничего не найдено',
 };
 
+export const HTTP_STATUS_MESSAGE_VACANCY_NOT_FOUND = {
+  error: true,
+  message: 'Нет такой вакансии',
+};
+
 export const HTTP_STATUS_MESSAGE_USER_NOT_EXISTS = {
   error: true,
   message: 'Такого пользователя не существует',

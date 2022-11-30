@@ -1,29 +1,12 @@
-export const HTTP_STATUS_MESSAGE_NOT_FOUND = {
-  error: true,
-  message: 'Ничего не найдено',
-};
+export const NOT_FOUND_MESSAGE = 'Ничего не найдено';
 
-export const HTTP_STATUS_MESSAGE_VACANCY_NOT_FOUND = {
-  error: true,
-  message: 'Нет такой вакансии',
-};
+export const VACANCY_NOT_FOUND_MESSAGE = 'Нет такой вакансии';
 
-export const HTTP_STATUS_MESSAGE_USER_NOT_EXISTS = {
-  error: true,
-  message: 'Такого пользователя не существует',
-};
+export const USER_NOT_EXISTS_MESSAGE = 'Такого пользователя не существует';
 
-export const HTTP_STATUS_MESSAGE_ALREADY_EXISTS = {
-  error: true,
-  message: 'Пользователь с таким email уже существует',
-};
+export const USER_ALREADY_EXISTS_MESSAGE =
+  'Пользователь с таким email уже существует';
 
-export const HTTP_STATUS_MESSAGE_FORBIDDEN = {
-  error: true,
-  message: 'Доступ запрещён :(',
-};
+export const FORBIDDEN_MESSAGE = 'Доступ запрещён :(';
 
-export const HTTP_STATUS_WRONG_CREDENTIAL = {
-  error: true,
-  message: 'Неправильный логин или пароль',
-};
+export const WRONG_CREDENTIAL_MESSAGE = 'Неправильный логин или пароль';

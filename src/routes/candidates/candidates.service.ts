@@ -1,8 +1,8 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Candidate, CandidateDocument } from './candidate.model';
 import { Model } from 'mongoose';
-import { HTTP_STATUS_MESSAGE_NOT_FOUND } from '../../constants/httpStatusMessages';
+import { NOT_FOUND_MESSAGE } from '../../constants/httpStatusMessages';
 import { initialCandidate } from '../../data/initial.data';
 import {
   CandidateIdDto,
@@ -17,7 +17,7 @@ export class CandidatesService {
   constructor(
     @InjectModel(Candidate.name)
     private candidates: Model<CandidateDocument>,
-    private ColumnsService: ColumnsService,
+    private columnsService: ColumnsService,
   ) {}
 
   async getCandidates({ userId }: UserId) {
@@ -33,10 +33,7 @@ export class CandidatesService {
     });
 
     if (!candidate) {
-      throw new HttpException(
-        HTTP_STATUS_MESSAGE_NOT_FOUND,
-        HttpStatus.NOT_FOUND,
-      );
+      throw new NotFoundException(NOT_FOUND_MESSAGE);
     }
 
     return candidate;
@@ -54,7 +51,7 @@ export class CandidatesService {
       initialCandidate({ userId, ...newCandidateInfo }),
     );
 
-    await this.ColumnsService.addNewCandidate({
+    await this.columnsService.addNewCandidate({
       userId,
       vacancyId: newCandidateInfo.vacancyId,
       candidateId: newCandidate._id.toString(),
@@ -78,10 +75,7 @@ export class CandidatesService {
     });
 
     if (!currentCandidate) {
-      throw new HttpException(
-        HTTP_STATUS_MESSAGE_NOT_FOUND,
-        HttpStatus.NOT_FOUND,
-      );
+      throw new NotFoundException(NOT_FOUND_MESSAGE);
     }
 
     return this.candidates.updateOne(

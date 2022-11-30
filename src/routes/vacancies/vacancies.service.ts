@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Vacancy, VacancyDocument } from './vacancies.model';
@@ -6,7 +6,7 @@ import { initialVacancy } from '../../data/initial.data';
 import { CreateVacancyDto, VacancyIdDto } from './dto/vacancies.dto';
 import { UserId } from '../../interfaces/userId';
 import { ColumnsService } from '../columns/columns.service';
-import { HTTP_STATUS_MESSAGE_VACANCY_NOT_FOUND } from '../../constants/httpStatusMessages';
+import { VACANCY_NOT_FOUND_MESSAGE } from '../../constants/httpStatusMessages';
 
 @Injectable()
 export class VacanciesService {
@@ -34,10 +34,7 @@ export class VacanciesService {
       });
 
     if (!vacancy) {
-      throw new HttpException(
-        HTTP_STATUS_MESSAGE_VACANCY_NOT_FOUND,
-        HttpStatus.NOT_FOUND,
-      );
+      throw new NotFoundException(VACANCY_NOT_FOUND_MESSAGE);
     }
 
     return vacancy;

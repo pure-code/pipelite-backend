@@ -1,9 +1,9 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 import { UserModel, UserModelDocument } from './user.model';
-import { HTTP_STATUS_MESSAGE_USER_NOT_EXISTS } from '../../constants/httpStatusMessages';
+import { USER_NOT_EXISTS_MESSAGE } from '../../constants/httpStatusMessages';
 import { UserEmail } from '../../interfaces/userId';
 import { initialUser } from '../../data/initial.data';
 import { CreateDemoDataService } from '../create-demo-data/create-demo-data.service';
@@ -27,10 +27,7 @@ export class UsersService {
     const user = await this.userModel.findOne({ userEmail });
 
     if (!user) {
-      throw new HttpException(
-        HTTP_STATUS_MESSAGE_USER_NOT_EXISTS,
-        HttpStatus.NOT_FOUND,
-      );
+      throw new NotFoundException(USER_NOT_EXISTS_MESSAGE);
     }
 
     return user;
@@ -40,10 +37,7 @@ export class UsersService {
     const userInfo = await this.userModel.findOne({ _id: userId });
 
     if (!userInfo) {
-      throw new HttpException(
-        HTTP_STATUS_MESSAGE_USER_NOT_EXISTS,
-        HttpStatus.NOT_FOUND,
-      );
+      throw new NotFoundException(USER_NOT_EXISTS_MESSAGE);
     }
 
     const { _id, userEmail, firstName, registrationAt } = userInfo;

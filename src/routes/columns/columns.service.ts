@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Column, ColumnDocument, Stages } from './columns.model';
 import { Model } from 'mongoose';
@@ -7,7 +7,6 @@ import { UserId } from '../../interfaces/userId';
 import { VacancyIdDto } from '../vacancies/dto/vacancies.dto';
 import { ColumnIdDto } from './dto/columns.dto';
 import { CandidateIdDto } from '../candidates/dto/candidate.dto';
-import { HTTP_STATUS_MESSAGE_NOT_FOUND } from '../../constants/httpStatusMessages';
 
 @Injectable()
 export class ColumnsService {

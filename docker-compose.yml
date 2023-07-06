@@ -1,0 +1,11 @@
+version: '3'
+services:
+  mongo:
+    image: mongo:4.4.13
+    container_name: mongo_pipelite
+    restart: always
+    ports:
+      - "127.0.0.1:35644:27017"
+    volumes:
+      - /home/pipelite/mongodb/database:/data/db
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
